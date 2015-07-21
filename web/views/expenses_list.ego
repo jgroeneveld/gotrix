@@ -1,0 +1,9 @@
+<%! func writeExpensesList(w io.Writer, v *ExpensesList) error %>
+
+<h1>Expenses</h1>
+
+<% for _, e := range v.Expenses { %>
+<div>
+    <%= e.Description %> - <%= e.Amount %>
+</div>
+<% } %>

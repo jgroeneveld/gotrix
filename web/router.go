@@ -8,14 +8,13 @@ import (
 	"net/http"
 )
 
-func NewRouter() http.Handler {
-	l := logger.New()
-
+func NewRouter(l *logger.Logger) http.Handler {
 	mw := ctx.Middleware(l)
 
 	r := httprouter.New()
 
 	r.GET("/", mw(expenses.ListHandler))
+	r.POST("/", mw(expenses.CreateHandler))
 
 	return r
 }

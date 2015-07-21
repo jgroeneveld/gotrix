@@ -4,26 +4,32 @@ import (
 	"crypto/rand"
 	"fmt"
 	"github.com/jgroeneveld/bookie2/logger"
+	"github.com/jgroeneveld/bookie2/web/httperr"
+	"github.com/jgroeneveld/bookie2/web/util"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"time"
 )
 
-func Middleware(l *logger.Logger) func(httpHandle) httprouter.Handle {
+func Middleware(globalLogger *logger.Logger) func(httpHandle) httprouter.Handle {
 	return func(f httpHandle) httprouter.Handle {
 		return func(rw http.ResponseWriter, r *http.Request, params httprouter.Params) {
-			l = l.Fork("request_id=" + newRequestID())
+			l := globalLogger.Fork("request_id=" + newRequestID())
 
 			c := NewContext(l, params)
 
 			c.Printf("starting %s %s", r.Method, r.URL)
 			startedAt := time.Now()
 
-			err := f(rw, r, c)
+			httpErr := httperr.Convert(f(rw, r, c))
+			if httpErr != nil {
+				rw.WriteHeader(httpErr.Status)
+				_ = util.RenderJSON(rw, httpErr)
+			}
 
 			suffix := ""
-			if err != nil {
-				suffix = fmt.Sprintf(" ERROR=%s", err.Error())
+			if httpErr != nil {
+				suffix = fmt.Sprintf(" ERROR=%s", httpErr.Error())
 			}
 			c.Printf("finished in %.06f%s", time.Since(startedAt).Seconds(), suffix)
 		}

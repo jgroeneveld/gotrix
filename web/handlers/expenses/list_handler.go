@@ -1,13 +1,19 @@
 package expenses
 
 import (
+	"github.com/jgroeneveld/bookie2/app/model"
 	"github.com/jgroeneveld/bookie2/web/ctx"
-	"io"
+	"github.com/jgroeneveld/bookie2/web/views"
 	"net/http"
-	"strings"
 )
 
 func ListHandler(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
-	io.Copy(rw, strings.NewReader("<h1>Hello World</h1>"))
-	return nil
+	view := &views.ExpensesList{
+		Expenses: []*model.Expense{
+			&model.Expense{Description: "Fahrrad", Amount: 109900},
+			&model.Expense{Description: "iPhone", Amount: 14999},
+		},
+	}
+
+	return views.RenderWithLayout(rw, view)
 }

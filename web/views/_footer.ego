@@ -1,0 +1,5 @@
+<%! func Footer(w io.Writer) error %>
+
+</div>
+</body>
+</html>
