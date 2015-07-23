@@ -3,9 +3,10 @@ package web
 import (
 	"github.com/go-errors/errors"
 	"github.com/jgroeneveld/bookie2/logger"
-	"github.com/jgroeneveld/bookie2/web/ctx"
-	"github.com/jgroeneveld/bookie2/web/handlers/expenses"
-	"github.com/jgroeneveld/bookie2/web/middleware"
+	apiexpenses "github.com/jgroeneveld/bookie2/web/api/handlers/expenses"
+	frontendexpenses "github.com/jgroeneveld/bookie2/web/api/handlers/expenses"
+	"github.com/jgroeneveld/bookie2/web/shared/ctx"
+	"github.com/jgroeneveld/bookie2/web/shared/middleware"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )
@@ -30,8 +31,11 @@ func NewRouter(l *logger.Logger) http.Handler {
 	r := httprouter.New()
 	mw := middleware.Wrapper(l)
 
-	r.GET("/", mw(frontendMiddlewares, expenses.ListHandler))
-	r.POST("/", mw(apiMiddlewares, expenses.CreateHandler))
+	r.GET("/expenses", mw(frontendMiddlewares, frontendexpenses.ListHandler))
+	r.POST("/expenses", mw(frontendMiddlewares, frontendexpenses.CreateHandler))
+
+	r.GET("/api/v1/expenses", mw(frontendMiddlewares, apiexpenses.ListHandler))
+	r.POST("/api/1/expenses", mw(apiMiddlewares, apiexpenses.CreateHandler))
 
 	return r
 }

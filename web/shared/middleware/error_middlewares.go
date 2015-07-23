@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/bookie2/web/ctx"
-	"github.com/jgroeneveld/bookie2/web/httperr"
-	"github.com/jgroeneveld/bookie2/web/util"
+	"github.com/jgroeneveld/bookie2/web/api"
+	"github.com/jgroeneveld/bookie2/web/shared/ctx"
+	"github.com/jgroeneveld/bookie2/web/shared/httperr"
 	"net/http"
 )
 

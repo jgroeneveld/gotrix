@@ -2,8 +2,8 @@ package expenses
 
 import (
 	"github.com/jgroeneveld/bookie2/app/model"
-	"github.com/jgroeneveld/bookie2/web/ctx"
-	"github.com/jgroeneveld/bookie2/web/views"
+	"github.com/jgroeneveld/bookie2/web/frontend/views"
+	"github.com/jgroeneveld/bookie2/web/shared/ctx"
 	"net/http"
 )
 

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/bookie2/web/ctx"
+	"github.com/jgroeneveld/bookie2/web/shared/ctx"
 	"net/http"
 	"time"
 )

@@ -1,12 +1,12 @@
 package middleware
 
 import (
-	"crypto/rand"
-	"fmt"
 	"github.com/jgroeneveld/bookie2/logger"
-	"github.com/jgroeneveld/bookie2/web/ctx"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"github.com/jgroeneveld/bookie2/web/shared/ctx"
+	"crypto/rand"
+	"fmt"
 )
 
 func Wrapper(l *logger.Logger) func(*Chain, HTTPHandle) httprouter.Handle {
