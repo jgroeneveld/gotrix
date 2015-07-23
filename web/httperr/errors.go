@@ -100,7 +100,7 @@ func (err Error) Error() string {
 		b, _ := json.Marshal(err.Errors)
 		suffix = fmt.Sprintf(" %s", string(b))
 	}
-	return fmt.Sprintf("httperr.Error %s(%d): %s%s", err.Type, err.Status, err.Message, suffix)
+	return fmt.Sprintf("%s(%d): %s%s", err.Type, err.Status, err.Message, suffix)
 }
 
 // MarshalJSON wraps the error in {"error":...}
