@@ -1,19 +1,14 @@
 package middleware
 
-import (
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
-	"net/http"
-)
-
-type HTTPHandle func(http.ResponseWriter, *http.Request, *ctx.Context) error
+import "github.com/jgroeneveld/gotrix/lib/web"
 
 type Middleware interface {
-	Bind(next HTTPHandle) HTTPHandle
+	Bind(next web.HTTPHandle) web.HTTPHandle
 }
 
-type MiddlewareFunc func(next HTTPHandle) HTTPHandle
+type MiddlewareFunc func(next web.HTTPHandle) web.HTTPHandle
 
-func (f MiddlewareFunc) Bind(next HTTPHandle) HTTPHandle {
+func (f MiddlewareFunc) Bind(next web.HTTPHandle) web.HTTPHandle {
 	return f(next)
 }
 
@@ -25,7 +20,7 @@ type Chain struct {
 	Middlewares []Middleware
 }
 
-func (chain *Chain) Bind(next HTTPHandle) HTTPHandle {
+func (chain *Chain) Bind(next web.HTTPHandle) web.HTTPHandle {
 	for i := len(chain.Middlewares) - 1; i >= 0; i-- {
 		next = chain.Middlewares[i].Bind(next)
 	}

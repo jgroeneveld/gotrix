@@ -1,10 +1,12 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"net/http"
 	"strings"
 	"testing"
+
+	"github.com/jgroeneveld/gotrix/lib/web"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 )
 
 func TestChain(t *testing.T) {
@@ -79,7 +81,7 @@ type callstackMiddleware struct {
 	Msg       string
 }
 
-func (mw *callstackMiddleware) Bind(next HTTPHandle) HTTPHandle {
+func (mw *callstackMiddleware) Bind(next web.HTTPHandle) web.HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		mw.callstack.Called(mw.Msg + "_before")
 		err := next(rw, r, c)

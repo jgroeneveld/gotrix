@@ -1,25 +1,28 @@
-package middleware
+package router
 
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/jgroeneveld/gotrix/lib/logger"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+
+	"github.com/jgroeneveld/gotrix/lib/logger"
+	"github.com/jgroeneveld/gotrix/lib/web"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/web/middleware"
+	"github.com/julienschmidt/httprouter"
 )
 
-func Wrapper(l logger.Logger) func(*Chain, HTTPHandle) httprouter.Handle {
-	first := ForHTTPRouter(l)
-
-	return func(middlewares *Chain, handle HTTPHandle) httprouter.Handle {
+// chain handler with middleware
+func HTTPRouterAdapter(globalLogger logger.Logger) func(*middleware.Chain, web.HTTPHandle) httprouter.Handle {
+	adapter := httpHandleConverter(globalLogger)
+	return func(middlewares *middleware.Chain, handle web.HTTPHandle) httprouter.Handle {
 		f := middlewares.Bind(handle)
-		return first(f)
+		return adapter(f)
 	}
 }
 
-func ForHTTPRouter(globalLogger logger.Logger) func(HTTPHandle) httprouter.Handle {
-	return func(handle HTTPHandle) httprouter.Handle {
+func httpHandleConverter(globalLogger logger.Logger) func(web.HTTPHandle) httprouter.Handle {
+	return func(handle web.HTTPHandle) httprouter.Handle {
 		return func(rw http.ResponseWriter, r *http.Request, params httprouter.Params) {
 			// put request id into logger and headers to allow better error reporting / debugging
 			requestID := newRequestID()

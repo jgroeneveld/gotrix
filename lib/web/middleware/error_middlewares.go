@@ -2,16 +2,18 @@ package middleware
 
 import (
 	"encoding/json"
+	"net/http"
+
+	"github.com/jgroeneveld/gotrix/lib/web"
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/httperr"
-	"net/http"
 )
 
 func RenderErrorsAsJSON() Middleware {
 	return MiddlewareFunc(renderErrorsAsJSONFunc)
 }
 
-func renderErrorsAsJSONFunc(next HTTPHandle) HTTPHandle {
+func renderErrorsAsJSONFunc(next web.HTTPHandle) web.HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		httpErr := httperr.Convert(next(rw, r, c))
 		if httpErr != nil {
@@ -30,7 +32,7 @@ func RenderErrorsAsHTML() Middleware {
 	return MiddlewareFunc(renderErrorsAsHTMLFunc)
 }
 
-func renderErrorsAsHTMLFunc(next HTTPHandle) HTTPHandle {
+func renderErrorsAsHTMLFunc(next web.HTTPHandle) web.HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		httpErr := httperr.Convert(next(rw, r, c))
 		if httpErr != nil {

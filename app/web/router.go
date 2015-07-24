@@ -1,14 +1,17 @@
 package web
 
 import (
+	"net/http"
+
 	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/gotrix/lib/logger"
 	apihandlers "github.com/jgroeneveld/gotrix/app/web/api/handlers"
 	frontendhandlers "github.com/jgroeneveld/gotrix/app/web/frontend/handlers"
+	"github.com/jgroeneveld/gotrix/lib/logger"
+	"github.com/jgroeneveld/gotrix/lib/web"
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/middleware"
+	"github.com/jgroeneveld/gotrix/lib/web/router"
 	"github.com/julienschmidt/httprouter"
-	"net/http"
 )
 
 func NewRouter(l logger.Logger) http.Handler {
@@ -28,14 +31,14 @@ func NewRouter(l logger.Logger) http.Handler {
 		// TODO middleware.RecoverPanics(),
 	)
 
+	a := router.HTTPRouterAdapter(l)
+	
 	r := httprouter.New()
-	mw := middleware.Wrapper(l)
+	r.GET("/expenses", a(frontendMiddlewares, frontendhandlers.ListExpenses))
+	r.POST("/expenses", a(frontendMiddlewares, frontendhandlers.CreateExpense))
 
-	r.GET("/expenses", mw(frontendMiddlewares, frontendhandlers.ListExpenses))
-	r.POST("/expenses", mw(frontendMiddlewares, frontendhandlers.CreateExpense))
-
-	r.GET("/api/v1/expenses", mw(apiMiddlewares, apihandlers.ListExpenses))
-	r.POST("/api/v1/expenses", mw(apiMiddlewares, apihandlers.CreateExpense))
+	r.GET("/api/v1/expenses", a(apiMiddlewares, apihandlers.ListExpenses))
+	r.POST("/api/v1/expenses", a(apiMiddlewares, apihandlers.CreateExpense))
 
 	return r
 }
@@ -49,7 +52,7 @@ type LogMiddleware struct {
 	Msg string
 }
 
-func (mw *LogMiddleware) Call(next middleware.HTTPHandle) middleware.HTTPHandle {
+func (mw *LogMiddleware) Call(next web.HTTPHandle) web.HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		c.Printf("%s Before", mw.Msg)
 		err := next(rw, r, c)

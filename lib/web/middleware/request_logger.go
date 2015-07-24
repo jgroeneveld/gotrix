@@ -1,16 +1,18 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"net/http"
 	"time"
+
+	"github.com/jgroeneveld/gotrix/lib/web"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 )
 
 func RequestLogger() Middleware {
 	return MiddlewareFunc(requestLoggerFunc)
 }
 
-func requestLoggerFunc(next HTTPHandle) HTTPHandle {
+func requestLoggerFunc(next web.HTTPHandle) web.HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		c.Printf("starting %s %s", r.Method, r.URL)
 		startedAt := time.Now()

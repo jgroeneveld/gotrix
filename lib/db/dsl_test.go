@@ -1,8 +1,9 @@
 package db
 
 import (
-	"github.com/jgroeneveld/trial/assert"
 	"testing"
+
+	"github.com/jgroeneveld/trial/assert"
 )
 
 func TestQueryFromOpts(t *testing.T) {
