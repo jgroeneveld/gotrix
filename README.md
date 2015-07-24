@@ -2,7 +2,7 @@
 
 **gotrix** is a blueprint for a go web project, solving the most common problems.
 Its not meant to be used as a library but rather to be copied and used as starting point.
-This frees from having to 
+This frees from having to fulfill every need at every point in the lib.
 
 # Assumptions
 A small to middle-sized web application with cli, api and frontend using postgres as db.
