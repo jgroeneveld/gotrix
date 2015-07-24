@@ -11,7 +11,6 @@ import (
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/middleware"
 	"github.com/jgroeneveld/gotrix/lib/web/router"
-	"github.com/julienschmidt/httprouter"
 )
 
 func NewRouter(l logger.Logger) http.Handler {
@@ -31,14 +30,13 @@ func NewRouter(l logger.Logger) http.Handler {
 		// TODO middleware.RecoverPanics(),
 	)
 
-	a := router.HTTPRouterAdapter(l)
-	
-	r := httprouter.New()
-	r.GET("/expenses", a(frontendMiddlewares, frontendhandlers.ListExpenses))
-	r.POST("/expenses", a(frontendMiddlewares, frontendhandlers.CreateExpense))
+	r := router.New(l)
 
-	r.GET("/api/v1/expenses", a(apiMiddlewares, apihandlers.ListExpenses))
-	r.POST("/api/v1/expenses", a(apiMiddlewares, apihandlers.CreateExpense))
+	r.Get("/expenses", frontendMiddlewares, frontendhandlers.ListExpenses)
+	r.Post("/expenses", frontendMiddlewares, frontendhandlers.CreateExpense)
+
+	r.Get("/api/v1/expenses", apiMiddlewares, apihandlers.ListExpenses)
+	r.Post("/api/v1/expenses", apiMiddlewares, apihandlers.CreateExpense)
 
 	return r
 }
