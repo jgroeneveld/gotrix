@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/bookie2/web/shared/ctx"
+	"github.com/jgroeneveld/bookie2/lib/web/ctx"
 	"net/http"
 	"strings"
 	"testing"
@@ -79,7 +79,7 @@ type callstackMiddleware struct {
 	Msg       string
 }
 
-func (mw *callstackMiddleware) Call(next HTTPHandle) HTTPHandle {
+func (mw *callstackMiddleware) Bind(next HTTPHandle) HTTPHandle {
 	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 		mw.callstack.Called(mw.Msg + "_before")
 		err := next(rw, r, c)

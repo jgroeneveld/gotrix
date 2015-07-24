@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/dynport/dgtk/log"
-	"github.com/jgroeneveld/bookie2/logger"
-	"github.com/jgroeneveld/bookie2/web"
+	"github.com/jgroeneveld/bookie2/app/web"
+	"github.com/jgroeneveld/bookie2/lib/logger"
+	"log"
 	"net/http"
 	"os"
 	"strings"

@@ -2,16 +2,16 @@ package web
 
 import (
 	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/bookie2/logger"
-	apihandlers "github.com/jgroeneveld/bookie2/web/api/handlers"
-	frontendhandlers "github.com/jgroeneveld/bookie2/web/api/handlers"
-	"github.com/jgroeneveld/bookie2/web/shared/ctx"
-	"github.com/jgroeneveld/bookie2/web/shared/middleware"
+	"github.com/jgroeneveld/bookie2/lib/logger"
+	apihandlers "github.com/jgroeneveld/bookie2/app/web/api/handlers"
+	frontendhandlers "github.com/jgroeneveld/bookie2/app/web/frontend/handlers"
+	"github.com/jgroeneveld/bookie2/lib/web/ctx"
+	"github.com/jgroeneveld/bookie2/lib/web/middleware"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )
 
-func NewRouter(l *logger.Logger) http.Handler {
+func NewRouter(l logger.Logger) http.Handler {
 	globalMiddlewares := middleware.NewChain(
 		middleware.RequestLogger(),
 	)

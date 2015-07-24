@@ -3,7 +3,7 @@ package expenses
 import (
 	"github.com/jgroeneveld/bookie2/app/model"
 	"github.com/jgroeneveld/bookie2/app/model/validate"
-	"github.com/jgroeneveld/bookie2/logger"
+	"github.com/jgroeneveld/bookie2/lib/logger"
 )
 
 type CreateParams struct {
@@ -11,7 +11,7 @@ type CreateParams struct {
 	Amount      int
 }
 
-func Create(l *logger.Logger, params CreateParams) error {
+func Create(l logger.Logger, params CreateParams) error {
 	expense := model.NewExpense()
 
 	expense.Description = params.Description

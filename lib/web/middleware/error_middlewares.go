@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/bookie2/web/api"
-	"github.com/jgroeneveld/bookie2/web/shared/ctx"
-	"github.com/jgroeneveld/bookie2/web/shared/httperr"
+	"encoding/json"
+	"github.com/jgroeneveld/bookie2/lib/web/ctx"
+	"github.com/jgroeneveld/bookie2/lib/web/httperr"
 	"net/http"
 )
 
@@ -16,7 +16,7 @@ func renderErrorsAsJSONFunc(next HTTPHandle) HTTPHandle {
 		httpErr := httperr.Convert(next(rw, r, c))
 		if httpErr != nil {
 			rw.WriteHeader(httpErr.Status)
-			_ = util.RenderJSON(rw, httpErr)
+			_ = renderJSON(rw, httpErr)
 			c.Printf("error_response=%s", httpErr.Error())
 		}
 		return nil
@@ -37,4 +37,22 @@ func renderErrorsAsHTMLFunc(next HTTPHandle) HTTPHandle {
 		}
 		return nil
 	}
+}
+
+func renderJSON(w http.ResponseWriter, i interface{}) error {
+	b, err := json.Marshal(i)
+	if err != nil {
+		return err
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	_, err = w.Write(b)
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write([]byte("\n"))
+
+	return err
 }

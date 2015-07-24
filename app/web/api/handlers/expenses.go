@@ -1,13 +1,11 @@
-package expenses
+package handlers
 
 import (
-	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/bookie2/app/model"
+	"errors"
 	"github.com/jgroeneveld/bookie2/app/service/expenses"
-	"github.com/jgroeneveld/bookie2/web/frontend/views"
-	"github.com/jgroeneveld/bookie2/web/shared/ctx"
-	"github.com/jgroeneveld/bookie2/web/shared/form"
-	"github.com/jgroeneveld/bookie2/web/shared/httperr"
+	"github.com/jgroeneveld/bookie2/lib/web/ctx"
+	"github.com/jgroeneveld/bookie2/lib/web/form"
+	"github.com/jgroeneveld/bookie2/lib/web/httperr"
 	"net/http"
 )
 
@@ -32,16 +30,10 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 	}
 
 	// TODO render shit
-	return errors.New(" TODO render view")
+	return errors.New(" TODO RENDER JSON")
 }
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
-	view := &views.ExpensesList{
-		Expenses: []*model.Expense{
-			&model.Expense{Description: "Fahrrad", Amount: 109900},
-			&model.Expense{Description: "iPhone", Amount: 14999},
-		},
-	}
-
-	return views.RenderWithLayout(rw, view)
+	// TODO render json
+	return errors.New(" TODO RENDER JSON")
 }

@@ -1,12 +1,12 @@
 package ctx
 
 import (
-	"github.com/jgroeneveld/bookie2/logger"
+	"github.com/jgroeneveld/bookie2/lib/logger"
 	"github.com/julienschmidt/httprouter"
 )
 
 type Context struct {
-	Logger *logger.Logger
+	Logger logger.Logger
 	Params httprouter.Params
 }
 
@@ -18,7 +18,7 @@ func (c *Context) ParamByName(name string) string {
 	return c.Params.ByName(name)
 }
 
-func NewContext(l *logger.Logger, params httprouter.Params) *Context {
+func NewContext(l logger.Logger, params httprouter.Params) *Context {
 	c := &Context{
 		Logger: l,
 		Params: params,

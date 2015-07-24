@@ -1,15 +1,15 @@
 package middleware
 
 import (
-	"github.com/jgroeneveld/bookie2/logger"
+	"github.com/jgroeneveld/bookie2/lib/logger"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
-	"github.com/jgroeneveld/bookie2/web/shared/ctx"
+	"github.com/jgroeneveld/bookie2/lib/web/ctx"
 	"crypto/rand"
 	"fmt"
 )
 
-func Wrapper(l *logger.Logger) func(*Chain, HTTPHandle) httprouter.Handle {
+func Wrapper(l logger.Logger) func(*Chain, HTTPHandle) httprouter.Handle {
 	first := ForHTTPRouter(l)
 
 	return func(middlewares *Chain, handle HTTPHandle) httprouter.Handle {
@@ -18,7 +18,7 @@ func Wrapper(l *logger.Logger) func(*Chain, HTTPHandle) httprouter.Handle {
 	}
 }
 
-func ForHTTPRouter(globalLogger *logger.Logger) func(HTTPHandle) httprouter.Handle {
+func ForHTTPRouter(globalLogger logger.Logger) func(HTTPHandle) httprouter.Handle {
 	return func(handle HTTPHandle) httprouter.Handle {
 		return func(rw http.ResponseWriter, r *http.Request, params httprouter.Params) {
 			l := globalLogger.Fork("request_id=" + newRequestID())
