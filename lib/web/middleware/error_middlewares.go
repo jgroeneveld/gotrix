@@ -18,6 +18,9 @@ func renderErrorsAsJSONFunc(next HTTPHandle) HTTPHandle {
 			rw.WriteHeader(httpErr.Status)
 			_ = renderJSON(rw, httpErr)
 			c.Printf("error_response=%s", httpErr.Error())
+			if stack := httpErr.Stacktrace; stack != "" {
+				c.Printf("%s", stack)
+			}
 		}
 		return nil
 	}

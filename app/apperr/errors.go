@@ -2,42 +2,52 @@
 package apperr
 
 import (
-	"errors"
 	"fmt"
+	"github.com/jgroeneveld/bookie2/lib/errors"
 	"strings"
 )
 
 func Validation(fieldErrors map[string][]string) error {
-	return &Error{
-		Err: &ValidationError{FieldErrors: fieldErrors},
-	}
+	return errors.Wrap(&Error{
+		Err: &validationError{FieldErrors: fieldErrors},
+	})
 }
 
 func RecordNotFound() error {
-	return &Error{
-		Err: RecordNotFoundErr,
-	}
+	return errors.Wrap(&Error{
+		Err: recordNotFoundErr,
+	})
 }
 
-var RecordNotFoundErr = errors.New("RecordNotFound")
+// Use own type to identify application level errors, allow error vars as errors and custom data attachments.
+type Error struct {
+	Err error
+}
 
-type ValidationError struct {
+func (e *Error) Error() string {
+	return e.Err.Error()
+}
+
+func (err *Error) IsValidationError() (*validationError, bool) {
+	ve, ok := err.Err.(*validationError)
+	return ve, ok
+}
+
+func (err *Error) IsRecordNotFoundError() bool {
+	return err.Err == recordNotFoundErr
+}
+
+var recordNotFoundErr = fmt.Errorf("RecordNotFound")
+
+type validationError struct {
 	FieldErrors map[string][]string
 }
 
-func (e *ValidationError) Error() string {
+func (e *validationError) Error() string {
 	var msgs []string
 	for k, v := range e.FieldErrors {
 		msgs = append(msgs, fmt.Sprintf("%s: %s", k, strings.Join(v, ",")))
 	}
 
 	return fmt.Sprintf("ValidationError: %s", strings.Join(msgs, ", "))
-}
-
-type Error struct {
-	Err error
-}
-
-func (e *Error) Error() string {
-	return "apperror." + e.Err.Error()
 }

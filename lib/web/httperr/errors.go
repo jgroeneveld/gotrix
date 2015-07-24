@@ -3,7 +3,6 @@ package httperr
 import (
 	"encoding/json"
 	"fmt"
-	"strings"
 )
 
 const (
@@ -17,11 +16,12 @@ const (
 	StatusFailedDependency    = 424
 )
 
-func InternalServerError(msg string) *Error {
+func InternalServerError(msg string, stacktrace string) *Error {
 	return &Error{
-		Status:  StatusInternalServerError,
-		Type:    "internal_server_error",
-		Message: "Internal Server Error: " + msg,
+		Status:     StatusInternalServerError,
+		Type:       "internal_server_error",
+		Message:    "Internal Server Error: " + msg,
+		Stacktrace: stacktrace,
 	}
 }
 
@@ -67,10 +67,6 @@ func MethodNotAllowed() error {
 
 // TODO make sure we can return *Error instead of error
 func Validation(fieldErrors map[string][]string) *Error {
-	var msgs []string
-	for k, v := range fieldErrors {
-		msgs = append(msgs, fmt.Sprintf("%s: %s", k, strings.Join(v, ",")))
-	}
 	return &Error{
 		Status:  StatusValidationError,
 		Type:    "validation",
@@ -88,10 +84,11 @@ func FailedDependency(msg string) error {
 }
 
 type Error struct {
-	Status  int                 `json:"status"`
-	Type    string              `json:"type"`
-	Message string              `json:"message"`
-	Errors  map[string][]string `json:"errors,omitempty"`
+	Status     int                 `json:"status"`
+	Type       string              `json:"type"`
+	Message    string              `json:"message"`
+	Errors     map[string][]string `json:"errors,omitempty"`
+	Stacktrace string              `json:"-"`
 }
 
 func (err Error) Error() string {

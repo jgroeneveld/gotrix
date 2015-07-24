@@ -23,6 +23,5 @@ func Create(l logger.Logger, params CreateParams) error {
 	}
 
 	// TODO do some real work
-
 	return nil
 }

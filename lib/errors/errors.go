@@ -20,6 +20,13 @@ func Is(e error, original error) bool {
 	return errors.Is(e, original)
 }
 
+func GetOriginalAndStack(err error) (original error, stack string) {
+	if casted, ok := err.(*errors.Error); ok {
+		return casted.Err, casted.ErrorStack()
+	}
+	return err, ""
+}
+
 func ErrorWithStack(err error) string {
 	if casted, ok := err.(interface {
 		ErrorStack() string

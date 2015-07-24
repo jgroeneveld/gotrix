@@ -1,6 +1,9 @@
 package httperr
 
-import "github.com/jgroeneveld/bookie2/app/apperr"
+import (
+	"github.com/jgroeneveld/bookie2/app/apperr"
+	"github.com/jgroeneveld/bookie2/lib/errors"
+)
 
 // Convert converts application level errors into http errors
 func Convert(err error) *Error {
@@ -8,21 +11,22 @@ func Convert(err error) *Error {
 		return nil
 	}
 
+	err, stack := errors.GetOriginalAndStack(err)
+
 	if httpErr, ok := err.(*Error); ok {
 		// it is a httperror already
 		return httpErr
 	}
 
-	if e, ok := err.(*apperr.Error); ok {
-		if ve, ok := e.Err.(*apperr.ValidationError); ok {
+	if ae, ok := err.(*apperr.Error); ok {
+		if ve, ok := ae.IsValidationError(); ok {
 			return Validation(ve.FieldErrors)
 		}
 
-		switch e.Err {
-		case apperr.RecordNotFoundErr:
+		if ok := ae.IsRecordNotFoundError(); ok {
 			return NotFound()
 		}
 	}
 
-	return InternalServerError(err.Error())
+	return InternalServerError(err.Error(), stack)
 }

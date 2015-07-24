@@ -1,12 +1,13 @@
 package handlers
 
 import (
-	"errors"
 	"github.com/jgroeneveld/bookie2/app/service/expenses"
 	"github.com/jgroeneveld/bookie2/lib/web/ctx"
 	"github.com/jgroeneveld/bookie2/lib/web/form"
 	"github.com/jgroeneveld/bookie2/lib/web/httperr"
 	"net/http"
+	"github.com/jgroeneveld/bookie2/lib/errors"
+	"github.com/jgroeneveld/bookie2/app/db"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
@@ -35,5 +36,5 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 	// TODO render json
-	return errors.New(" TODO RENDER JSON")
+	return db.AllExpenses()
 }
