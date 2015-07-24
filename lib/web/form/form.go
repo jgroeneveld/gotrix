@@ -2,7 +2,7 @@ package form
 
 import (
 	"fmt"
-	"github.com/jgroeneveld/bookie2/lib/web/httperr"
+	"github.com/jgroeneveld/gotrix/lib/web/httperr"
 	"net/http"
 	"strconv"
 )

@@ -3,8 +3,8 @@ package middleware
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/jgroeneveld/bookie2/lib/logger"
-	"github.com/jgroeneveld/bookie2/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/logger"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )

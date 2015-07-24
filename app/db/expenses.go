@@ -2,9 +2,13 @@ package db
 
 import (
 	"database/sql"
-	"github.com/jgroeneveld/bookie2/lib/errors"
+	"github.com/jgroeneveld/gotrix/app/errors"
 )
 
 func AllExpenses() error {
-	return errors.Wrap(sql.ErrNoRows)
+	return errors.RecordNotFound()
+}
+
+func randomerror() error {
+	return wrap(sql.ErrNoRows)
 }

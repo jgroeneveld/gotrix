@@ -1,7 +1,7 @@
 package ctx
 
 import (
-	"github.com/jgroeneveld/bookie2/lib/logger"
+	"github.com/jgroeneveld/gotrix/lib/logger"
 	"github.com/julienschmidt/httprouter"
 )
 

@@ -1,8 +1,8 @@
 package httperr
 
 import (
-	"github.com/jgroeneveld/bookie2/app/apperr"
-	"github.com/jgroeneveld/bookie2/lib/errors"
+	apperrors "github.com/jgroeneveld/gotrix/app/errors"
+	"github.com/jgroeneveld/gotrix/lib/errors"
 )
 
 // Convert converts application level errors into http errors
@@ -18,7 +18,7 @@ func Convert(err error) *Error {
 		return httpErr
 	}
 
-	if ae, ok := err.(*apperr.Error); ok {
+	if ae, ok := err.(*apperrors.Error); ok {
 		if ve, ok := ae.IsValidationError(); ok {
 			return Validation(ve.FieldErrors)
 		}

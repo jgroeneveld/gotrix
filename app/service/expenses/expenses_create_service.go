@@ -1,9 +1,9 @@
 package expenses
 
 import (
-	"github.com/jgroeneveld/bookie2/app/model"
-	"github.com/jgroeneveld/bookie2/app/model/validate"
-	"github.com/jgroeneveld/bookie2/lib/logger"
+	"github.com/jgroeneveld/gotrix/app/model"
+	"github.com/jgroeneveld/gotrix/app/model/validate"
+	"github.com/jgroeneveld/gotrix/lib/logger"
 )
 
 type CreateParams struct {

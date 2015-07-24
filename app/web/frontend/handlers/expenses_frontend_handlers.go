@@ -2,12 +2,12 @@ package expenses
 
 import (
 	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/bookie2/app/model"
-	"github.com/jgroeneveld/bookie2/app/service/expenses"
-	"github.com/jgroeneveld/bookie2/app/web/frontend/views"
-	"github.com/jgroeneveld/bookie2/lib/web/ctx"
-	"github.com/jgroeneveld/bookie2/lib/web/form"
-	"github.com/jgroeneveld/bookie2/lib/web/httperr"
+	"github.com/jgroeneveld/gotrix/app/model"
+	"github.com/jgroeneveld/gotrix/app/service/expenses"
+	"github.com/jgroeneveld/gotrix/app/web/frontend/views"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/web/form"
+	"github.com/jgroeneveld/gotrix/lib/web/httperr"
 	"net/http"
 )
 

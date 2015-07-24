@@ -1,13 +1,13 @@
 package handlers
 
 import (
-	"github.com/jgroeneveld/bookie2/app/service/expenses"
-	"github.com/jgroeneveld/bookie2/lib/web/ctx"
-	"github.com/jgroeneveld/bookie2/lib/web/form"
-	"github.com/jgroeneveld/bookie2/lib/web/httperr"
+	"github.com/jgroeneveld/gotrix/app/service/expenses"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/web/form"
+	"github.com/jgroeneveld/gotrix/lib/web/httperr"
 	"net/http"
-	"github.com/jgroeneveld/bookie2/lib/errors"
-	"github.com/jgroeneveld/bookie2/app/db"
+	"github.com/jgroeneveld/gotrix/lib/errors"
+	"github.com/jgroeneveld/gotrix/app/db"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {

@@ -1,6 +1,6 @@
 package validate
 
-import "github.com/jgroeneveld/bookie2/app/apperr"
+import "github.com/jgroeneveld/gotrix/app/errors"
 
 type Validator struct {
 	FieldErrors map[string][]string
@@ -21,7 +21,7 @@ func (v *Validator) Add(field string, msg string) {
 
 func (v *Validator) Err() error {
 	if len(v.FieldErrors) > 0 {
-		return apperr.Validation(v.FieldErrors)
+		return errors.Validation(v.FieldErrors)
 	}
 	return nil
 }

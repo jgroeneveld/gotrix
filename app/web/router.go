@@ -2,11 +2,11 @@ package web
 
 import (
 	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/bookie2/lib/logger"
-	apihandlers "github.com/jgroeneveld/bookie2/app/web/api/handlers"
-	frontendhandlers "github.com/jgroeneveld/bookie2/app/web/frontend/handlers"
-	"github.com/jgroeneveld/bookie2/lib/web/ctx"
-	"github.com/jgroeneveld/bookie2/lib/web/middleware"
+	"github.com/jgroeneveld/gotrix/lib/logger"
+	apihandlers "github.com/jgroeneveld/gotrix/app/web/api/handlers"
+	frontendhandlers "github.com/jgroeneveld/gotrix/app/web/frontend/handlers"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/web/middleware"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
 )

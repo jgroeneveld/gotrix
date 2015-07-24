@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"encoding/json"
-	"github.com/jgroeneveld/bookie2/lib/web/ctx"
-	"github.com/jgroeneveld/bookie2/lib/web/httperr"
+	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"github.com/jgroeneveld/gotrix/lib/web/httperr"
 	"net/http"
 )
 

@@ -1,9 +1,9 @@
-// apperr contains application level errors. They will be converted by the presentation layer (e.g. web)
-package apperr
+// errors contains application level errors. They will be converted by the presentation layer (e.g. web)
+package errors
 
 import (
 	"fmt"
-	"github.com/jgroeneveld/bookie2/lib/errors"
+	"github.com/jgroeneveld/gotrix/lib/errors"
 	"strings"
 )
 
