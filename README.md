@@ -18,10 +18,10 @@ A small to middle-sized web application with cli, api and frontend using postgre
 
 # Application Structure
 
-- `app`
-- `cmd`
-- `config`
-- `lib`
+- `app` application level logic
+- `cmd` binaries
+- `config` configuration
+- `lib` reusable library components
 
 # Errors
 
