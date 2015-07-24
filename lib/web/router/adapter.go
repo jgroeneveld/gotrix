@@ -13,7 +13,7 @@ import (
 )
 
 // chain handler with middleware
-func HTTPRouterAdapter(globalLogger logger.Logger) func(*middleware.Chain, web.HTTPHandle) httprouter.Handle {
+func httprouterAdapter(globalLogger logger.Logger) func(*middleware.Chain, web.HTTPHandle) httprouter.Handle {
 	adapter := httpHandleConverter(globalLogger)
 	return func(middlewares *middleware.Chain, handle web.HTTPHandle) httprouter.Handle {
 		f := middlewares.Bind(handle)

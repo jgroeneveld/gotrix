@@ -17,7 +17,7 @@ type Router struct {
 func New(l logger.Logger) *Router {
 	r := new(Router)
 	r.router = httprouter.New()
-	r.adapter = HTTPRouterAdapter(l)
+	r.adapter = httprouterAdapter(l)
 	return r
 }
 
