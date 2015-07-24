@@ -1,0 +1,2 @@
+- read a config from env
+- web panic middleware
