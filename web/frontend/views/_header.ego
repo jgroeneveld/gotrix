@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>gotrix</title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/assets/css/lib/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/assets/css/app.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-    <script src="/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="/assets/js/lib/jquery-2.0.3.min.js"></script>
     <script src="/assets/js/app.js"></script>
 </head>
 <body>
