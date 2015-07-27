@@ -3,31 +3,34 @@ package web
 import (
 	"net/http"
 
-	"github.com/go-errors/errors"
 	apihandlers "github.com/jgroeneveld/gotrix/app/web/api/handlers"
 	frontendhandlers "github.com/jgroeneveld/gotrix/app/web/frontend/handlers"
+	"github.com/jgroeneveld/gotrix/lib/db"
 	"github.com/jgroeneveld/gotrix/lib/logger"
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/middleware"
 	"github.com/jgroeneveld/gotrix/lib/web/router"
 )
 
-func NewRouter(l logger.Logger) http.Handler {
-	globalMiddlewares := middleware.NewChain(
+func NewRouter(l logger.Logger, txManager *db.TxManager) http.Handler {
+	afterErrorHandlingChain := middleware.NewChain(
 		middleware.RequestLogger(),
 	)
 
-	apiMiddlewares := middleware.NewChain(
-		globalMiddlewares,
-		middleware.RenderErrorsAsJSON(),
+	beforeErrorHandlingChain := middleware.NewChain(
+		middleware.TxMiddleware(txManager),
 		// TODO middleware.RecoverPanics(),
 	)
 
+	apiMiddlewares := middleware.NewChain(
+		afterErrorHandlingChain,
+		middleware.RenderErrorsAsJSON(),
+		beforeErrorHandlingChain,
+	)
+
 	frontendMiddlewares := middleware.NewChain(
-		globalMiddlewares,
+		afterErrorHandlingChain,
 		middleware.RenderErrorsAsHTML(),
-		// TODO middleware.RecoverPanics(),
+		beforeErrorHandlingChain,
 	)
 
 	r := router.New(l)
@@ -39,22 +42,4 @@ func NewRouter(l logger.Logger) http.Handler {
 	r.Post("/api/v1/expenses", apiMiddlewares, apihandlers.CreateExpense)
 
 	return r
-}
-
-func testhandler(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
-	c.Printf("handler called")
-	return errors.New("alles kaput")
-}
-
-type LogMiddleware struct {
-	Msg string
-}
-
-func (mw *LogMiddleware) Call(next web.HTTPHandle) web.HTTPHandle {
-	return func(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
-		c.Printf("%s Before", mw.Msg)
-		err := next(rw, r, c)
-		c.Printf("%s After", mw.Msg)
-		return err
-	}
 }

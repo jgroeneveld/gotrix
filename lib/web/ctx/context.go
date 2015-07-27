@@ -1,13 +1,15 @@
 package ctx
 
 import (
+	"github.com/jgroeneveld/gotrix/lib/db"
 	"github.com/jgroeneveld/gotrix/lib/logger"
 	"github.com/julienschmidt/httprouter"
 )
 
 type Context struct {
-	Logger logger.Logger
-	Params httprouter.Params
+	Logger    logger.Logger
+	Params    httprouter.Params
+	TxManager *db.TxManager
 }
 
 func (c *Context) Printf(format string, args ...interface{}) {

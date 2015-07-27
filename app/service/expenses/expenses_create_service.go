@@ -1,6 +1,7 @@
 package expenses
 
 import (
+	"github.com/jgroeneveld/gotrix/app/db"
 	"github.com/jgroeneveld/gotrix/app/model"
 	"github.com/jgroeneveld/gotrix/app/model/validate"
 	"github.com/jgroeneveld/gotrix/lib/logger"
@@ -11,7 +12,7 @@ type CreateParams struct {
 	Amount      int
 }
 
-func Create(l logger.Logger, params CreateParams) error {
+func Create(l logger.Logger, con db.Con, params CreateParams) error {
 	expense := model.NewExpense()
 
 	expense.Description = params.Description

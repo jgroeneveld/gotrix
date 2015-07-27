@@ -1,13 +1,14 @@
 package handlers
 
 import (
+	"net/http"
+
 	"github.com/jgroeneveld/gotrix/app/db"
 	"github.com/jgroeneveld/gotrix/app/service/expenses"
 	"github.com/jgroeneveld/gotrix/lib/errors"
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/form"
 	"github.com/jgroeneveld/gotrix/lib/web/httperr"
-	"net/http"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
@@ -25,7 +26,12 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 		return err
 	}
 
-	err = expenses.Create(c.Logger, params)
+	con, err := c.TxManager.Begin()
+	if err != nil {
+		return err
+	}
+
+	err = expenses.Create(c.Logger, con, params)
 	if err != nil {
 		return err
 	}
