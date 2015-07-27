@@ -8,7 +8,7 @@ var configDefaults = map[string]config{
 	},
 	"development": config{
 		ApplicationName: "gotrix_development",
-		DatabaseURL:     "postgres://127.0.0.1:5432/gotrix_development?sslmode=disable",
+		DatabaseURL:     "postgres://127.0.0.1:5432/gotrix?sslmode=disable",
 		Port:            "3000",
 	},
 	"test": config{

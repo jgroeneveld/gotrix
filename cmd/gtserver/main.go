@@ -7,6 +7,7 @@ import (
 
 	"github.com/jgroeneveld/gotrix/cfg"
 	"github.com/jgroeneveld/gotrix/lib/db"
+	"github.com/jgroeneveld/gotrix/lib/errors"
 	"github.com/jgroeneveld/gotrix/lib/logger"
 	"github.com/jgroeneveld/gotrix/web"
 )
@@ -16,7 +17,7 @@ func main() {
 
 	txManager, err := newTxManager()
 	if err != nil {
-		log.Fatal(err) // TODO output error stacktrace when available
+		log.Fatal(errors.ErrorWithStack(err))
 	}
 
 	router := web.NewRouter(l, txManager)
@@ -26,7 +27,7 @@ func main() {
 
 	err = http.ListenAndServe(port, router)
 	if err != nil {
-		log.Fatal("Can not start server ERROR=%s", err.Error())
+		log.Fatalf("Can not start server\n%s", errors.ErrorWithStack(err))
 	}
 }
 

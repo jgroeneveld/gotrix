@@ -1,4 +1,3 @@
-- read a config from env
 - web panic middleware
 - compile static assets in binary
 - serve static assets
