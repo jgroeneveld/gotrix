@@ -3,12 +3,12 @@ package web
 import (
 	"net/http"
 
-	apihandlers "github.com/jgroeneveld/gotrix/web/api/handlers"
-	frontendhandlers "github.com/jgroeneveld/gotrix/web/frontend/handlers"
+	"github.com/jgroeneveld/gotrix/lib/db"
 	"github.com/jgroeneveld/gotrix/lib/logger"
 	"github.com/jgroeneveld/gotrix/lib/web/middleware"
 	"github.com/jgroeneveld/gotrix/lib/web/router"
-	"github.com/jgroeneveld/gotrix/lib/db"
+	apihandlers "github.com/jgroeneveld/gotrix/web/api/handlers"
+	frontendhandlers "github.com/jgroeneveld/gotrix/web/frontend/handlers"
 )
 
 func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
@@ -18,7 +18,7 @@ func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
 
 	beforeErrorHandlingChain := middleware.NewChain(
 		middleware.TxMiddleware(txManager),
-		// TODO middleware.RecoverPanics(),
+		middleware.RecoverPanics(),
 	)
 
 	apiMiddlewares := middleware.NewChain(
