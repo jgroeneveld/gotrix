@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/app/db"
 	"github.com/jgroeneveld/gotrix/app/service/expenses"
 	"github.com/jgroeneveld/gotrix/lib/errors"
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
@@ -42,5 +41,6 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
 	// TODO render json
-	return db.AllExpenses()
+	rw.Write([]byte("TODO content please"))
+	return nil
 }
