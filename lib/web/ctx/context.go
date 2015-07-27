@@ -9,7 +9,7 @@ import (
 type Context struct {
 	Logger    logger.Logger
 	Params    httprouter.Params
-	TxManager *db.TxManager
+	TxManager db.TxManager
 }
 
 func (c *Context) Printf(format string, args ...interface{}) {

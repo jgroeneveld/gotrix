@@ -11,7 +11,7 @@ import (
 	"github.com/jgroeneveld/gotrix/lib/web/router"
 )
 
-func NewRouter(l logger.Logger, txManager *db.TxManager) http.Handler {
+func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
 	afterErrorHandlingChain := middleware.NewChain(
 		middleware.RequestLogger(),
 	)

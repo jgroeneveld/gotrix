@@ -11,14 +11,14 @@ import (
 // TxMiddleware injects a TxManager into the Context and manages the transaction based onrequest result.
 // If the request was a success, it tries to commit the transaction and reports any commit errors
 // otherwise it rollsback and logs any rollback errors.
-func TxMiddleware(txManager *db.TxManager) Middleware {
+func TxMiddleware(txManager db.TxManager) Middleware {
 	return &txMiddleware{
 		TxManager: txManager,
 	}
 }
 
 type txMiddleware struct {
-	TxManager *db.TxManager
+	TxManager db.TxManager
 }
 
 func (mw *txMiddleware) Bind(next web.HTTPHandle) web.HTTPHandle {

@@ -36,8 +36,8 @@ func main() {
 	}
 }
 
-func newTxManager() (*db.TxManager, error) {
-	con, err := db.Connect(databaseURL, applicatioName)
+func newTxManager() (*db.SimpleTxManager, error) {
+	con, err := db.Connect(databaseURL, applicationName)
 	if err != nil {
 		return nil, err
 	}
