@@ -1,0 +1,21 @@
+body {
+    font-weight: 200;
+    font-size: 15px;
+}
+li.link {
+    font-size: 20px;
+}
+li.link a {
+    font-size: 25px;
+}
+li.link a {
+    color: black;
+    text-decoration: underline;
+}
+.date {
+    font-size: 1.5em;
+}
+
+h2 a, h2 a:hover {
+    color: black;
+}
