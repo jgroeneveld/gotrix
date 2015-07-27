@@ -3,18 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 	"strings"
 
+	"github.com/jgroeneveld/gotrix/app/cfg"
 	"github.com/jgroeneveld/gotrix/app/web"
 	"github.com/jgroeneveld/gotrix/lib/db"
 	"github.com/jgroeneveld/gotrix/lib/logger"
-)
-
-// TODO move to config object that reads from env etc
-var (
-	databaseURL    = "fixme"
-	applicatioName = "fixme2"
 )
 
 func main() {
@@ -37,7 +31,7 @@ func main() {
 }
 
 func newTxManager() (*db.SimpleTxManager, error) {
-	con, err := db.Connect(databaseURL, applicationName)
+	con, err := db.Connect(cfg.Config.DatabaseURL, cfg.Config.ApplicationName+"_gtserver")
 	if err != nil {
 		return nil, err
 	}
@@ -46,10 +40,7 @@ func newTxManager() (*db.SimpleTxManager, error) {
 
 // TODO move into config struct
 func getPort() string {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
-	}
+	port := cfg.Config.Port
 	if !strings.Contains(port, ":") {
 		port = "127.0.0.1:" + port
 	}
