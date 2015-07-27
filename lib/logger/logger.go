@@ -3,9 +3,12 @@ package logger
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"strings"
 )
+
+var Discard = &TaggedLogger{writer: ioutil.Discard}
 
 var DefaultWriter = os.Stderr
 
