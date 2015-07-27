@@ -39,6 +39,9 @@ func renderErrorsAsHTMLFunc(next web.HTTPHandle) web.HTTPHandle {
 			rw.WriteHeader(httpErr.Status)
 			// TODO render error as html page
 			c.Printf("respond with error=%s", httpErr.Error())
+			if stack := httpErr.Stacktrace; stack != "" {
+				c.Printf("%s", stack)
+			}
 		}
 		return nil
 	}
