@@ -6,7 +6,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/jgroeneveld/gotrix/app/model"
 	"github.com/jgroeneveld/gotrix/app/service/expenses"
-	"github.com/jgroeneveld/gotrix/app/web/frontend/views"
+	"github.com/jgroeneveld/gotrix/web/frontend/views"
 	"github.com/jgroeneveld/gotrix/lib/web/ctx"
 	"github.com/jgroeneveld/gotrix/lib/web/form"
 	"github.com/jgroeneveld/gotrix/lib/web/httperr"

@@ -19,9 +19,33 @@ A small to middle-sized web application with cli, api and frontend using postgre
 # Application Structure
 
 - `app` application level logic
+- `cfg` configuration
 - `cmd` binaries
-- `config` configuration
 - `lib` reusable library components
+- `web` web handlers and web-related logic (e.g. views)
+
+## app
+
+TODO
+
+## cfg
+
+TODO
+
+
+## cmd
+
+TODO
+
+
+## lib
+
+TODO
+
+
+## web
+
+TODO
 
 # Errors
 

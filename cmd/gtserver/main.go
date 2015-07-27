@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/jgroeneveld/gotrix/app/cfg"
-	"github.com/jgroeneveld/gotrix/app/web"
+	"github.com/jgroeneveld/gotrix/cfg"
 	"github.com/jgroeneveld/gotrix/lib/db"
 	"github.com/jgroeneveld/gotrix/lib/logger"
+	"github.com/jgroeneveld/gotrix/web"
 )
 
 func main() {
