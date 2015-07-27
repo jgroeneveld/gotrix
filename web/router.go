@@ -8,6 +8,7 @@ import (
 	"github.com/jgroeneveld/gotrix/lib/web/middleware"
 	"github.com/jgroeneveld/gotrix/lib/web/router"
 	apihandlers "github.com/jgroeneveld/gotrix/web/api/handlers"
+	"github.com/jgroeneveld/gotrix/web/frontend/assets"
 	frontendhandlers "github.com/jgroeneveld/gotrix/web/frontend/handlers"
 )
 
@@ -40,6 +41,8 @@ func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
 
 	r.Get("/api/v1/expenses", apiMiddlewares, apihandlers.ListExpenses)
 	r.Post("/api/v1/expenses", apiMiddlewares, apihandlers.CreateExpense)
+
+	r.ServeFiles("/assets/*filepath", assets.FileSystem())
 
 	return r
 }

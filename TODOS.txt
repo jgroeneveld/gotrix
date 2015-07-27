@@ -1,3 +1,2 @@
-- web panic middleware
-- compile static assets in binary
-- serve static assets
+- add assets for bootstrap and css
+- render error pages from assets

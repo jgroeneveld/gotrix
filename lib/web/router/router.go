@@ -25,6 +25,10 @@ func (r *Router) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	r.router.ServeHTTP(rw, req)
 }
 
+func (r *Router) ServeFiles(path string, fs http.FileSystem) {
+	r.router.ServeFiles(path, fs)
+}
+
 func (r *Router) Get(route string, mwc *middleware.Chain, handler web.HTTPHandle) {
 	r.router.GET(route, r.adapter(mwc, handler))
 }
