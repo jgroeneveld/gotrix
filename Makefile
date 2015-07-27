@@ -11,4 +11,4 @@ clean:
 	rm -f web/frontend/views/compiled_ego.go
 
 dev: build
-	go-reload ./gtserver
+	go-reload gtserver
