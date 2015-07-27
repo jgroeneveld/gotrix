@@ -8,3 +8,9 @@ type Con interface {
 	Prepare(query string) (*sql.Stmt, error)
 	Exec(query string, args ...interface{}) (sql.Result, error)
 }
+
+type Tx interface {
+	Con
+	Commit() error
+	Rollback() error
+}
