@@ -33,12 +33,12 @@ func Where(q string, args ...interface{}) func(o *Opt) {
 	}
 }
 
-func queryWithOpts(con Con, query string, opts ...func(*Opt)) (*sql.Rows, error) {
-	query, args := queryFromOpts(query, opts...)
+func QueryWithOpts(con Con, query string, opts ...func(*Opt)) (*sql.Rows, error) {
+	query, args := FormatOpts(query, opts...)
 	return con.Query(query, args...)
 }
 
-func queryFromOpts(query string, opts ...func(*Opt)) (string, []interface{}) {
+func FormatOpts(query string, opts ...func(*Opt)) (string, []interface{}) {
 	o := &Opt{}
 	for _, f := range opts {
 		f(o)

@@ -6,23 +6,23 @@ import (
 	"gotrix/lib/db"
 )
 
-func NewTestTxManager(con *sql.DB) *TestTxManager {
-	return &TestTxManager{
-		Tx: MustBeginTx(con),
+func NewTxManager(tx *sql.Tx) *TxManager {
+	return &TxManager{
+		Tx: tx,
 	}
 }
 
-type TestTxManager struct {
+type TxManager struct {
 	Tx                 *sql.Tx
 	closeSuccessCalled bool
 	closeFailCalled    bool
 }
 
-func (f *TestTxManager) Begin() (db.Con, error) {
+func (f *TxManager) Begin() (db.Con, error) {
 	return f.Tx, nil
 }
 
-func (m *TestTxManager) Close(success bool) error {
+func (m *TxManager) Close(success bool) error {
 	if success {
 		m.closeSuccessCalled = true
 	} else {
@@ -31,7 +31,7 @@ func (m *TestTxManager) Close(success bool) error {
 	return nil
 }
 
-func (m *TestTxManager) Rollback() {
+func (m *TxManager) Rollback() {
 	err := m.Tx.Rollback()
 	if err != nil {
 		panic(err)

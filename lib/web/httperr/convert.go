@@ -1,7 +1,7 @@
 package httperr
 
 import (
-	apperrors "gotrix/app/errors"
+	apperrors "gotrix/app/apperrors"
 	"gotrix/lib/errors"
 )
 

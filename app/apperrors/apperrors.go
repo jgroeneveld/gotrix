@@ -1,5 +1,5 @@
-// errors contains application level errors. They will be converted by the presentation layer (e.g. web)
-package errors
+// apperrors contains application level errors. They will be converted by the presentation layer (e.g. web)
+package apperrors
 
 import (
 	"fmt"

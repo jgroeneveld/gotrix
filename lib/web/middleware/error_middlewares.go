@@ -60,7 +60,5 @@ func renderJSON(w http.ResponseWriter, i interface{}) error {
 		return err
 	}
 
-	_, err = w.Write([]byte("\n"))
-
 	return err
 }

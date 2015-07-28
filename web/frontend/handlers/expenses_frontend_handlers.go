@@ -3,13 +3,14 @@ package expenses
 import (
 	"net/http"
 
-	"github.com/go-errors/errors"
 	"gotrix/app/model"
-	"gotrix/app/service/expenses"
-	"gotrix/web/frontend/views"
 	"gotrix/lib/web/ctx"
 	"gotrix/lib/web/form"
 	"gotrix/lib/web/httperr"
+	"gotrix/web/frontend/views"
+
+	"gotrix/app/service"
+	"gotrix/lib/errors"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
@@ -18,7 +19,7 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 		return httperr.BadRequest(err.Error())
 	}
 
-	params := expenses.CreateParams{
+	params := service.CreateExpenseParams{
 		Description: form.ReqString("description"),
 		Amount:      form.ReqInt("amount"),
 	}
@@ -32,13 +33,13 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 		return err
 	}
 
-	err = expenses.Create(c.Logger, con, params)
+	expense, err := service.CreateExpense(c.Logger, con, params)
 	if err != nil {
 		return err
 	}
 
 	// TODO render shit
-	return errors.New(" TODO render view")
+	return errors.New(" TODO render view for %v", expense)
 }
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {

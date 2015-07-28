@@ -7,7 +7,7 @@ import (
 )
 
 func TestQueryFromOpts(t *testing.T) {
-	query, args := queryFromOpts(
+	query, args := FormatOpts(
 		"SELECT name FROM expenses",
 		OrderBy("name ASC"),
 		Where("ignore = '?' AND name = ? AND age > ? AND created_at < ?", "harald", 12, "2015"),
