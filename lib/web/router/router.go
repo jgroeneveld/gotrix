@@ -6,6 +6,7 @@ import (
 	"gotrix/lib/logger"
 	"gotrix/lib/web"
 	"gotrix/lib/web/middleware"
+
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -19,6 +20,11 @@ func New(l logger.Logger) *Router {
 	r.router = httprouter.New()
 	r.adapter = httprouterAdapter(l)
 	return r
+}
+
+func (r *Router) SetErrorHandlers(notFound, methodNotAllowed http.Handler) {
+	r.router.NotFound = notFound
+	r.router.MethodNotAllowed = methodNotAllowed
 }
 
 func (r *Router) ServeHTTP(rw http.ResponseWriter, req *http.Request) {

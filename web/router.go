@@ -5,6 +5,7 @@ import (
 
 	"gotrix/lib/db"
 	"gotrix/lib/logger"
+	"gotrix/lib/web/handlers"
 	"gotrix/lib/web/middleware"
 	"gotrix/lib/web/router"
 	apihandlers "gotrix/web/api/handlers"
@@ -35,6 +36,11 @@ func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
 	)
 
 	r := router.New(l)
+
+	r.SetErrorHandlers(
+		handlers.StaticFile(l, 404, assets.FileSystem(), "404.html"),
+		handlers.StaticFile(l, 405, assets.FileSystem(), "405.html"),
+	)
 
 	r.Get("/expenses", frontendMiddlewares, frontendhandlers.ListExpenses)
 	r.Post("/expenses", frontendMiddlewares, frontendhandlers.CreateExpense)
