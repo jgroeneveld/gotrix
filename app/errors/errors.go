@@ -3,7 +3,7 @@ package errors
 
 import (
 	"fmt"
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	"gotrix/lib/errors"
 	"strings"
 )
 

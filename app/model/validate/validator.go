@@ -1,6 +1,6 @@
 package validate
 
-import "github.com/jgroeneveld/gotrix/app/errors"
+import "gotrix/app/errors"
 
 type Validator struct {
 	FieldErrors map[string][]string

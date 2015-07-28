@@ -1,8 +1,8 @@
 package ctx
 
 import (
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/lib/db"
+	"gotrix/lib/logger"
 	"github.com/julienschmidt/httprouter"
 )
 

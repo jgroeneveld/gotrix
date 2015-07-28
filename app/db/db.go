@@ -2,8 +2,8 @@ package db
 
 import (
 	"database/sql"
-	apperrors "github.com/jgroeneveld/gotrix/app/errors"
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	apperrors "gotrix/app/errors"
+	"gotrix/lib/errors"
 )
 
 type Con interface {

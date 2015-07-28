@@ -3,7 +3,7 @@ package db
 import (
 	"database/sql"
 
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	"gotrix/lib/errors"
 )
 
 func WithTx(con *sql.DB, f func(Tx) error) error {

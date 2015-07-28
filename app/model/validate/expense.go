@@ -1,7 +1,7 @@
 package validate
 
 import (
-	"github.com/jgroeneveld/gotrix/app/model"
+	"gotrix/app/model"
 	"strings"
 )
 

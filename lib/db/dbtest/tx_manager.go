@@ -3,7 +3,7 @@ package dbtest
 import (
 	"database/sql"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
+	"gotrix/lib/db"
 )
 
 func NewTestTxManager(con *sql.DB) *TestTxManager {

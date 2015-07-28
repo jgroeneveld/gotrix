@@ -1,9 +1,9 @@
 package migrations
 
 import (
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/db/migrations"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/lib/db"
+	"gotrix/lib/db/migrations"
+	"gotrix/lib/logger"
 )
 
 func Exec(l logger.Logger, con db.Con) error {

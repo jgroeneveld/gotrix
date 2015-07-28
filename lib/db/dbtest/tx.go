@@ -3,8 +3,8 @@ package dbtest
 import (
 	"database/sql"
 
-	"github.com/jgroeneveld/gotrix/app/db/migrations"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/app/db/migrations"
+	"gotrix/lib/logger"
 )
 
 func MustBeginTx(con *sql.DB) *sql.Tx {

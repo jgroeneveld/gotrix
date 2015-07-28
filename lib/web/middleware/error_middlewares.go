@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
-	"github.com/jgroeneveld/gotrix/lib/web/httperr"
+	"gotrix/lib/web"
+	"gotrix/lib/web/ctx"
+	"gotrix/lib/web/httperr"
 )
 
 func RenderErrorsAsJSON() Middleware {

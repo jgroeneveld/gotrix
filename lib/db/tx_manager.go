@@ -1,6 +1,6 @@
 package db
 
-import "github.com/jgroeneveld/gotrix/lib/errors"
+import "gotrix/lib/errors"
 
 type TxManager interface {
 	Begin() (Con, error)

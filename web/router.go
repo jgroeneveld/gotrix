@@ -3,13 +3,13 @@ package web
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/logger"
-	"github.com/jgroeneveld/gotrix/lib/web/middleware"
-	"github.com/jgroeneveld/gotrix/lib/web/router"
-	apihandlers "github.com/jgroeneveld/gotrix/web/api/handlers"
-	"github.com/jgroeneveld/gotrix/web/frontend/assets"
-	frontendhandlers "github.com/jgroeneveld/gotrix/web/frontend/handlers"
+	"gotrix/lib/db"
+	"gotrix/lib/logger"
+	"gotrix/lib/web/middleware"
+	"gotrix/lib/web/router"
+	apihandlers "gotrix/web/api/handlers"
+	"gotrix/web/frontend/assets"
+	frontendhandlers "gotrix/web/frontend/handlers"
 )
 
 func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {

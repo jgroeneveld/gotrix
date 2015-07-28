@@ -3,9 +3,9 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/errors"
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"gotrix/lib/errors"
+	"gotrix/lib/web"
+	"gotrix/lib/web/ctx"
 )
 
 func RecoverPanics() Middleware {

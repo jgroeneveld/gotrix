@@ -3,9 +3,9 @@ package router
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/logger"
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/middleware"
+	"gotrix/lib/logger"
+	"gotrix/lib/web"
+	"gotrix/lib/web/middleware"
 	"github.com/julienschmidt/httprouter"
 )
 

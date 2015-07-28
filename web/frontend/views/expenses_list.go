@@ -1,7 +1,7 @@
 package views
 
 import (
-	"github.com/jgroeneveld/gotrix/app/model"
+	"gotrix/app/model"
 	"io"
 )
 

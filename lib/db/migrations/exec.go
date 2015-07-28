@@ -4,9 +4,9 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/errors"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/lib/db"
+	"gotrix/lib/errors"
+	"gotrix/lib/logger"
 )
 
 func Exec(l logger.Logger, con db.Con, migrations Migrations) error {

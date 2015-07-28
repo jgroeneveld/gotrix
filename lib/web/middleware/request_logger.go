@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"gotrix/lib/web"
+	"gotrix/lib/web/ctx"
 )
 
 func RequestLogger() Middleware {

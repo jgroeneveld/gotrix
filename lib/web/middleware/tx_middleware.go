@@ -3,9 +3,9 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"gotrix/lib/db"
+	"gotrix/lib/web"
+	"gotrix/lib/web/ctx"
 )
 
 // TxMiddleware injects a TxManager into the Context and manages the transaction based onrequest result.

@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/jgroeneveld/gotrix/lib/web"
+import "gotrix/lib/web"
 
 type Middleware interface {
 	Bind(next web.HTTPHandle) web.HTTPHandle

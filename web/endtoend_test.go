@@ -8,11 +8,11 @@ import (
 
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/db/dbtest"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/lib/db"
+	"gotrix/lib/db/dbtest"
+	"gotrix/lib/logger"
 	"github.com/jgroeneveld/trial/assert"
-	"github.com/jgroeneveld/gotrix/cfg"
+	"gotrix/cfg"
 )
 
 func TestAPIExpenses(t *testing.T) {

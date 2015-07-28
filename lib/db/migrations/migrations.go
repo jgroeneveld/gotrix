@@ -3,7 +3,7 @@ package migrations
 import (
 	"fmt"
 
-	"github.com/jgroeneveld/gotrix/lib/db"
+	"gotrix/lib/db"
 )
 
 type Migration struct {

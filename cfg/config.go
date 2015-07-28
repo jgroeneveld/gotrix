@@ -6,7 +6,7 @@ import (
 
 	"log"
 
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	"gotrix/lib/errors"
 )
 
 type config struct {

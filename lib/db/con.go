@@ -5,7 +5,7 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	"gotrix/lib/errors"
 )
 
 func Connect(databaseURL string, applicationName string) (*sql.DB, error) {

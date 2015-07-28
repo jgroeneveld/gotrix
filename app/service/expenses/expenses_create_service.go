@@ -1,10 +1,10 @@
 package expenses
 
 import (
-	"github.com/jgroeneveld/gotrix/app/db"
-	"github.com/jgroeneveld/gotrix/app/model"
-	"github.com/jgroeneveld/gotrix/app/model/validate"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/app/db"
+	"gotrix/app/model"
+	"gotrix/app/model/validate"
+	"gotrix/lib/logger"
 )
 
 type CreateParams struct {

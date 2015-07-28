@@ -1,8 +1,8 @@
 package httperr
 
 import (
-	apperrors "github.com/jgroeneveld/gotrix/app/errors"
-	"github.com/jgroeneveld/gotrix/lib/errors"
+	apperrors "gotrix/app/errors"
+	"gotrix/lib/errors"
 )
 
 // Convert converts application level errors into http errors

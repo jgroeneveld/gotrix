@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/go-errors/errors"
-	"github.com/jgroeneveld/gotrix/app/model"
-	"github.com/jgroeneveld/gotrix/app/service/expenses"
-	"github.com/jgroeneveld/gotrix/web/frontend/views"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
-	"github.com/jgroeneveld/gotrix/lib/web/form"
-	"github.com/jgroeneveld/gotrix/lib/web/httperr"
+	"gotrix/app/model"
+	"gotrix/app/service/expenses"
+	"gotrix/web/frontend/views"
+	"gotrix/lib/web/ctx"
+	"gotrix/lib/web/form"
+	"gotrix/lib/web/httperr"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {

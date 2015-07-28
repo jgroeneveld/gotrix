@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/dynport/dgtk/log"
-	"github.com/jgroeneveld/gotrix/app/db/migrations"
-	"github.com/jgroeneveld/gotrix/cfg"
-	"github.com/jgroeneveld/gotrix/lib/db"
-	"github.com/jgroeneveld/gotrix/lib/errors"
-	"github.com/jgroeneveld/gotrix/lib/logger"
+	"gotrix/app/db/migrations"
+	"gotrix/cfg"
+	"gotrix/lib/db"
+	"gotrix/lib/errors"
+	"gotrix/lib/logger"
+	"log"
 )
 
 func main() {

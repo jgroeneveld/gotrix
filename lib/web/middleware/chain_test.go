@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jgroeneveld/gotrix/lib/web"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
+	"gotrix/lib/web"
+	"gotrix/lib/web/ctx"
 )
 
 func TestChain(t *testing.T) {

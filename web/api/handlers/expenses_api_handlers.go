@@ -3,11 +3,11 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/jgroeneveld/gotrix/app/service/expenses"
-	"github.com/jgroeneveld/gotrix/lib/errors"
-	"github.com/jgroeneveld/gotrix/lib/web/ctx"
-	"github.com/jgroeneveld/gotrix/lib/web/form"
-	"github.com/jgroeneveld/gotrix/lib/web/httperr"
+	"gotrix/app/service/expenses"
+	"gotrix/lib/errors"
+	"gotrix/lib/web/ctx"
+	"gotrix/lib/web/form"
+	"gotrix/lib/web/httperr"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
