@@ -1,0 +1,20 @@
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.error-page .jumbotron {
+    width: 100%;
+    color: rgba(255,255,255,0.85);
+}
+
+.error-page.error-page-404 .jumbotron {
+    background-color: #AA3939;
+}
+
+.error-page.error-page-405 .jumbotron {
+    background-color: #AA6C39;
+}
