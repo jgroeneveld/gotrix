@@ -21,7 +21,7 @@ A small to middle-sized web application with cli, api and frontend using postgre
 - The access/presentation layer (`cli` / `web/api` / `web/frontend`) 
     - provides handlers that translate and validate user input into calls for the
 `app/service` layer. 
-    -  translate output to display for the user
+    -  translates output to display for the user
     
 - The service layer (`app/service`)
     - provides use cases, validates input and executes any calls to the persistence layer 
