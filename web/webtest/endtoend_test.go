@@ -9,7 +9,7 @@ import (
 
 	"gotrix/app/db/dbtest"
 
-	"gotrix/web/webtest/testclient"
+	"gotrix/lib/web/webtest/testclient"
 
 	"github.com/jgroeneveld/trial/assert"
 )
