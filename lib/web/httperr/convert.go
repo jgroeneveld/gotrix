@@ -11,7 +11,7 @@ func Convert(err error) *Error {
 		return nil
 	}
 
-	err, stack := errors.GetOriginalAndStack(err)
+	err, stack := errors.UnwrapWithStack(err)
 
 	if httpErr, ok := err.(*Error); ok {
 		// it is a httperror already

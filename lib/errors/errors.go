@@ -21,7 +21,14 @@ func Is(e error, original error) bool {
 	return errors.Is(e, original)
 }
 
-func GetOriginalAndStack(err error) (original error, stack string) {
+func Unwrap(err error) (original error) {
+	if casted, ok := err.(*errors.Error); ok {
+		return casted.Err
+	}
+	return err
+}
+
+func UnwrapWithStack(err error) (original error, stack string) {
 	if casted, ok := err.(*errors.Error); ok {
 		return casted.Err, casted.ErrorStack()
 	}
