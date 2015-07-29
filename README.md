@@ -16,6 +16,19 @@ A small to middle-sized web application with cli, api and frontend using postgre
 
 - `jgroeneveld/trial/assert` small and clean assertions
 
+## Flow
+
+- The access/presentation layer (`cli` / `web/api` / `web/frontend`) 
+    - provides handlers that translate and validate user input into calls for the
+`app/service` layer. 
+    -  translate output to display for the user
+    
+- The service layer (`app/service`)
+    - provides use cases, validates input and executes any calls to the persistence layer 
+    - or any other data sources
+     
+- The persistence layer (`app/db`) provides access to the database in a structured way.
+
 # Application Structure
 
 - `app` application level logic
@@ -61,24 +74,18 @@ A small to middle-sized web application with cli, api and frontend using postgre
 - `webtest` global tests for the web layer like *end to end* tests
 - `router.go` main entry point for the web layer
 
-## Flow
-
-- The access/presentation layer (`cli` / `web/api` / `web/frontend`) 
-    - provides handlers that translate and validate user input into calls for the
-`app/service` layer. 
-    -  translate output to display for the user
-    
-- The service layer (`app/service`)
-    - provides use cases, validates input and executes any calls to the persistence layer 
-    - or any other data sources
-     
-- The persistence layer (`app/db`) provides access to the database in a structured way. 
-
 # Errors
 
 - `lib/errors` is used to wrap all unknown error sources to add stacktrace information.
 - `app/apperr` provides application level errors (`apperr.Validation`, `apperr.RecordNotFound`)
 - `lib/web/httperr` converts application level errors into http errors with status codes. They can be rendered by api or html middlewares into error responses.
+
+# Migrations
+
+`gtmigrate` runs migrations on the configured postgres database. Migrations are defined in `app/db/migrations`.
+
+The name of the migration file `001_create_expenses.go` is just for ordering in the folder.
+The first param of `Migrations.Add` is the ordering in which the migrations are run and, combined with the description, the id in the database. *(id, description)* must be unique.
 
 # Testing
 
