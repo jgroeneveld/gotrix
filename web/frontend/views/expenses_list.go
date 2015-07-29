@@ -1,12 +1,14 @@
 package views
 
-import (
-	"gotrix/app/model"
-	"io"
-)
+import "io"
+
+type ExpensesListItem struct {
+	Description string
+	Amount      int
+}
 
 type ExpensesList struct {
-	Expenses []*model.Expense
+	Expenses []*ExpensesListItem
 }
 
 func (v *ExpensesList) Render(w io.Writer) error {

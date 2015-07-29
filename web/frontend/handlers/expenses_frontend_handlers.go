@@ -43,11 +43,21 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 }
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
-	view := &views.ExpensesList{
-		Expenses: []*model.Expense{
-			&model.Expense{Description: "Fahrrad", Amount: 109900},
-			&model.Expense{Description: "iPhone", Amount: 14999},
-		},
+	tx, err := c.TxManager.Begin()
+	if err != nil {
+		return err
+	}
+	expenses, err := service.ListExpenses(c.Logger, tx)
+	if err != nil {
+		return err
+	}
+
+	view := new(views.ExpensesList)
+	for _, exp := range expenses {
+		view.Expenses = append(view.Expenses, &views.ExpensesListItem{
+			Description: exp.Description,
+			Amount:      exp.Amount,
+		})
 	}
 
 	return views.RenderWithLayout(rw, view)
