@@ -1,0 +1,23 @@
+<%! func writeExpenseForm(w io.Writer, v *ExpenseForm) error %>
+
+<% if v.Errors != nil { %>
+<h3>Validation Errors</h3>
+<ul>
+    <% for k, v := range v.Errors { %>
+    <li>
+        <b><%= k %></b>: <%= strings.Join(v, ", ") %>
+    </li>
+    <% } %>
+</ul>
+<% } %>
+
+<form action="/expenses" method="post">
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description"
+           value="<%= v.Description %>" maxlength="30">
+
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" value="<%= v.Amount %>" min="0">
+
+    <input type="submit">
+</form>

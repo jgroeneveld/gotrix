@@ -3,14 +3,13 @@ package expenses
 import (
 	"net/http"
 
-	"gotrix/app/model"
 	"gotrix/lib/web/ctx"
 	"gotrix/lib/web/form"
 	"gotrix/lib/web/httperr"
 	"gotrix/web/frontend/views"
 
+	"gotrix/app/apperrors"
 	"gotrix/app/service"
-	"gotrix/lib/errors"
 )
 
 func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {
@@ -24,22 +23,27 @@ func CreateExpense(rw http.ResponseWriter, r *http.Request, c *ctx.Context) erro
 		Amount:      form.ReqInt("amount"),
 	}
 
-	if err := form.Err(); err != nil {
-		return err
-	}
-
 	con, err := c.TxManager.Begin()
 	if err != nil {
 		return err
 	}
 
-	expense, err := service.CreateExpense(c.Logger, con, params)
+	_, err = service.CreateExpense(c.Logger, con, params)
 	if err != nil {
-		return err
+		ve, ok := apperrors.IsValidationError(err)
+		if !ok {
+			return err
+		}
+		view := &views.ExpenseForm{
+			Description: params.Description,
+			Amount:      params.Amount,
+			Errors:      ve.FieldErrors,
+		}
+		return views.RenderWithLayout(rw, view)
 	}
 
-	// TODO render shit
-	return errors.New(" TODO render view for %v", expense)
+	http.Redirect(rw, r, "/expenses", 302)
+	return nil
 }
 
 func ListExpenses(rw http.ResponseWriter, r *http.Request, c *ctx.Context) error {

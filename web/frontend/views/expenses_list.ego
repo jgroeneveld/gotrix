@@ -7,3 +7,7 @@
     <%= e.Description %> - <%= e.Amount %>
 </div>
 <% } %>
+
+<h1>New Expense</h1>
+
+<% new(ExpenseForm).Render(w) %>

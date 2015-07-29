@@ -19,6 +19,14 @@ func RecordNotFound() error {
 	})
 }
 
+func IsValidationError(err error) (*validationError, bool) {
+	ae, ok := errors.Unwrap(err).(*Error)
+	if !ok {
+		return nil, false
+	}
+	return ae.IsValidationError()
+}
+
 // Use own type to identify application level errors, allow error vars as errors and custom data attachments.
 type Error struct {
 	Err error
