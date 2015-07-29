@@ -28,7 +28,7 @@ type Form struct {
 
 func (f *Form) ReqString(field string) string {
 	v, ok := f.Values[field]
-	if !ok || len(v) == 0 {
+	if !ok || len(v[0]) == 0 {
 		f.addErrorMissingParameter(field)
 		return ""
 	}
@@ -38,7 +38,7 @@ func (f *Form) ReqString(field string) string {
 
 func (f *Form) ReqInt(field string) int {
 	v, ok := f.Values[field]
-	if !ok || len(v) == 0 {
+	if !ok || len(v[0]) == 0 {
 		f.addErrorMissingParameter(field)
 		return 0
 	}
