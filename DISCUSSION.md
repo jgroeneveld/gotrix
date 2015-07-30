@@ -36,7 +36,7 @@ The custom error type can have a stack trace appended and use it while building 
 When working with domain specific errors this gets even worse, as it requires a lot of type casting to determine what kind of error was actually received. This gets pretty tedious and error prone soon. But is by far the best solution we've found. Others we considered were:
 
 * Using the actual error types of the different domains as return values would be way more explicit, but is produces so much boiler plate, as it requires the package prefix most of the time (like in `apperror.Error`) and all errors must be returned as pointers.
-* Using panics is not something that is used a lot in go, but is a perfectly valid strategy inside a library, i.e. the panic should leave the boundaries of the library. But with the different domain errors this would require a lot of panic recovery, type switching, selecting the panics that should be handled and panicking again on everything else.
+* Using panics is not something that is used a lot in go, but is a perfectly valid strategy inside a library, i.e. the panic should leave the boundaries of the library. But with the different domain errors this would require a lot of panic recovery, type switching, selecting the panics that should be handled and panicking again on everything else. Basically poor-mans-exceptions without the helpers provided by languages using exceptions as error transport.
 
 The current solution with wrapped errors is not optimal for the given reason, but best the language permits.
 
