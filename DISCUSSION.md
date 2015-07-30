@@ -41,10 +41,14 @@ When working with domain specific errors this gets even worse, as it requires a 
 The current solution with wrapped errors is not optimal for the given reason, but best the language permits.
 
 
-## The Package Catastrophe
+## The Package And Testing Catastrophe
 
-With modularization comes the intent to have many small modules, for which intent can be seen easily. But with packages of same intent in different domains there is the inherent problem, that go's package names don't give any respect to the ancestry, i.e. a package `some.domain.with.errors` will loose all information the `domain` aspect for this `errors` package, i.e. for `domain1` and `domain2` one can't say which `errors` package was meant (if both have one and both are required). The workaround is an named import, but the question remains how to chose those names. Something like `domain1errors` doesn't read very nicely.
+The primary entity of modularization within go is the package. While trying to structure the gotrix application we had the following intent:
 
-This problem striked mostly with us dividing the gotrix file hierarchy in two mayor branches `lib` (with everything general for the different domains) and `app` and `web` (specific content).
+* Have everything application specific in dedicated packages following a domain approach.
+* Extract generic stuff to a separate structure that could be published as library in the future.
 
-The biggest problem was testing though. There is no way to use test helpers from another package, without making those helpers available in production code. Especially for fabrications this is a problem, as they should be used for testing the db layer itself, but should also be available when testing other packages.
+This led to three major package trees: `app`, `web` and `lib`. The prior two are application related and the last one contains the generic stuff. Those trees share a lot of common structure, i.e. there are many packages that share the same purpose and therefore name. This is a problem as go's package names don't give any respect to the ancestry, i.e. a package `some.domain.with.errors` will loose all information on the `domain` aspect. The workaround is an named import, but the question remains how to chose those names. Something like `domain1errors` doesn't read very nicely, requires manual effort while building import statements and a lot of additional typing.
+
+Those things are inconvenient, but testing is a real problem. There are lots of testing helpers, that should be shared between the different packages, like for example the fabrication functions. This isn't possible in go without making those helpers available on the public production interface, as entities in test files (having the `test_` prefix) are not exported, not even for other packages' tests. Generally the testing code is put side by side with production code, but we decided to add separate "test" packages marked by their name for everything but simple unit tests. This makes the intent of the functions pretty clear (like in `dbtest.FabricateSomething`) and prevents many of the import loop problems.
+
