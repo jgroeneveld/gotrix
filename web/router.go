@@ -13,13 +13,13 @@ import (
 	frontendhandlers "gotrix/web/frontend/handlers"
 )
 
-func NewRouter(l logger.Logger, txManager db.TxManager) http.Handler {
+func NewRouter(l logger.Logger, txMFac db.TxManagerFactory) http.Handler {
 	afterErrorHandlingChain := middleware.NewChain(
 		middleware.RequestLogger(),
 	)
 
 	beforeErrorHandlingChain := middleware.NewChain(
-		middleware.TxMiddleware(txManager),
+		middleware.TxMiddleware(txMFac),
 		middleware.RecoverPanics(),
 	)
 

@@ -34,6 +34,6 @@ func BeginTx() *sql.Tx {
 	return tx
 }
 
-func NewTxManager() *dbtest.TxManager {
-	return dbtest.NewTxManager(BeginTx())
+func NewTxManagerFactory() *dbtest.TxManagerFactory {
+	return dbtest.NewTxManagerFactory(BeginTx())
 }

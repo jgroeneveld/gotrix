@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"testing"
 	"gotrix/app/db/dbtest"
+	libdbtest "gotrix/lib/db/dbtest"
 	"gotrix/lib/web/ctx"
 	"gotrix/lib/logger"
 	"sync"
@@ -18,9 +19,9 @@ import (
 // constructed both facilitating a tx. The first request will be blocked until the
 // second one finished. This creates the situation with the race condition.
 func TestTransaction(t *testing.T) {
-	txManager := dbtest.NewTxManager()
+	txMFac := dbtest.NewTxManagerFactory()
 
-	mw := TxMiddleware(txManager)
+	mw := TxMiddleware(txMFac)
 
 	mx := new(sync.Mutex)
 	mx.Lock()
@@ -30,24 +31,25 @@ func TestTransaction(t *testing.T) {
 
 	wg := new(sync.WaitGroup)
 	wg.Add(2)
-	var err1, err2 error
 
 	go func() {
 		defer wg.Done()
-		err1 = mwStack1(nil, nil, ctx.NewContext(logger.Discard, nil))
+		c := ctx.NewContext(logger.Discard, nil)
+		err := mwStack1(nil, nil, c)
+		assert.Nil(t, err, "first request should succeed")
+		assert.True(t, c.TxManager.(*libdbtest.TxManager).CloseSuccessCalled)
 	}()
 
 	go func() {
 		defer wg.Done()
-		err2 = mwStack2(nil, nil, ctx.NewContext(logger.Discard, nil))
-		assert.True(t, txManager.CloseSuccessCalled)
+		c := ctx.NewContext(logger.Discard, nil)
+		err := mwStack2(nil, nil, c)
+		assert.Nil(t, err, "second request should succeed")
+		assert.True(t, c.TxManager.(*libdbtest.TxManager).CloseSuccessCalled)
 		mx.Unlock()
 	}()
 
 	wg.Wait()
-
-	assert.Nil(t, err1)
-	assert.Nil(t, err2)
 }
 
 func waitHandler(mx *sync.Mutex) web.HTTPHandle {

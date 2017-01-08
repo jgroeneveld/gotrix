@@ -7,18 +7,30 @@ import (
 	"gotrix/lib/errors"
 )
 
-func NewTxManager(tx *sql.Tx) *TxManager {
-	return &TxManager{
+func NewTxManagerFactory(tx *sql.Tx) *TxManagerFactory {
+	return &TxManagerFactory{
 		Tx: tx,
 	}
+}
+
+type TxManagerFactory struct {
+	Tx *sql.Tx
+}
+
+func (txMFac *TxManagerFactory) Create() db.TxManager {
+	return &TxManager{Tx: txMFac.Tx}
+}
+
+func (txMFac *TxManagerFactory) Close() error {
+	return txMFac.Tx.Rollback()
 }
 
 type TxManager struct {
 	Tx                 *sql.Tx
 	CloseSuccessCalled bool
 	CloseFailCalled    bool
-	txOpened bool
-	txClosed bool
+	txOpened           bool
+	txClosed           bool
 }
 
 func (f *TxManager) Begin() (db.Con, error) {
