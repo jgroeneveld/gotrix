@@ -18,10 +18,10 @@ import (
 )
 
 func TestAPIExpenses(t *testing.T) {
-	txManager := dbtest.NewTxManager()
-	defer txManager.Rollback()
+	txMFac := dbtest.NewTxManagerFactory()
+	defer txMFac.Close()
 
-	router := web.NewRouter(logger.Discard, txManager)
+	router := web.NewRouter(logger.Discard, txMFac)
 	s := testclient.New(router)
 
 	{

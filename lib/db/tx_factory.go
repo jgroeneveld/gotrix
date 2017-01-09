@@ -2,20 +2,20 @@ package db
 
 import "database/sql"
 
-type TxFactory interface {
-	BeginTx() (Tx, error)
+type TxManagerFactory interface {
+	Create() TxManager
 }
 
-func NewTxFactory(con *sql.DB) TxFactory {
-	return &ConTxFactory{
+func NewTxManagerFactory(con *sql.DB) TxManagerFactory {
+	return &ConTxManagerFactory {
 		con: con,
 	}
 }
 
-type ConTxFactory struct {
+type ConTxManagerFactory struct {
 	con *sql.DB
 }
 
-func (f *ConTxFactory) BeginTx() (Tx, error) {
-	return f.con.Begin()
+func (f *ConTxManagerFactory) Create() TxManager {
+	return NewTxManager(f.con)
 }

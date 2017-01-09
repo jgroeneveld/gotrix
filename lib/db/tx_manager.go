@@ -1,26 +1,29 @@
 package db
 
-import "gotrix/lib/errors"
+import (
+	"database/sql"
+	"gotrix/lib/errors"
+)
 
 type TxManager interface {
 	Begin() (Con, error)
 	Close(success bool) error
 }
 
-func NewTxManager(txFac TxFactory) *SimpleTxManager {
+func NewTxManager(con *sql.DB) *SimpleTxManager {
 	return &SimpleTxManager{
-		txFactory: txFac,
+		con: con,
 	}
 }
 
 type SimpleTxManager struct {
-	txFactory  TxFactory
+	con        *sql.DB
 	tx         Tx
 	didBeginTx bool
 }
 
 func (m *SimpleTxManager) Begin() (Con, error) {
-	tx, err := m.txFactory.BeginTx()
+	tx, err := m.con.Begin()
 	if err != nil {
 		return nil, errors.Wrap(err)
 	}

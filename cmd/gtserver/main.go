@@ -15,12 +15,12 @@ import (
 func main() {
 	l := logger.New()
 
-	txManager, err := newTxManager()
+	txMFac, err := newTxManagerFactory()
 	if err != nil {
 		log.Fatal(errors.ErrorWithStack(err))
 	}
 
-	router := web.NewRouter(l, txManager)
+	router := web.NewRouter(l, txMFac)
 
 	port := getPort()
 	l.Printf("Starting server on port=%s", port)
@@ -31,12 +31,12 @@ func main() {
 	}
 }
 
-func newTxManager() (*db.SimpleTxManager, error) {
+func newTxManagerFactory() (db.TxManagerFactory, error) {
 	con, err := db.Connect(cfg.Config.DatabaseURL, cfg.Config.ApplicationName+"_gtserver")
 	if err != nil {
 		return nil, err
 	}
-	return db.NewTxManager(db.NewTxFactory(con)), nil
+	return db.NewTxManagerFactory(con), nil
 }
 
 // TODO move into config struct
